@@ -76,7 +76,46 @@ void MandelbrotTask::run()
 			std::unique_lock<std::mutex> line_lock(line_->mutex_);
 
 			// write data as ARGB
-			line_->data_[x] = 0xff000000 | colour << 16 | colour << 8 | colour;
+			//line_->data_[x] = 0xff000000 | colour << 16 | colour << 8 | colour;
+			
+			// rotate the hue
+			float h = (iterations > 255) ? iterations - 255 : iterations;
+			Uint8 r, g, b;
+
+			h = (h / 256.0f) * 6; // maps h to the range [0, 6)
+			int i = std::floor(h); // i represent the setor of the colour wheel
+			h -= i; // maps h to range [0, 1)
+			switch( i )
+			{
+			case 0: // full red, no blue, increase green
+				r = 255; b = 0;
+				g = h * 255;
+				break;
+			case 1: // full green, no blue, decrease red
+				g = 255; b = 0;
+				r = (1 - h) * 255;
+				break;
+			case 2: // full greeen, no red, increase blue
+				g = 255; r = 0;
+				b = h * 255;
+				break;
+			case 3: // full blue, no red, decrease green
+				b = 255; r = 0;
+				g = (1 - h) * 255;
+				break;
+			case 4: // full blue, no green, increase red
+				b = 255; g = 0;
+				r = h * 255;
+				break;
+			case 5: // full red, no green, decrease blue
+				r = 255; g = 0;
+				b = (1 - h) * 255;
+				break;
+			default: r = g = b = 255;
+				break;
+			}
+
+			line_->data_[x] = 0xff000000 | r << 16 | g << 8 | b;
 		}
 	}
 }

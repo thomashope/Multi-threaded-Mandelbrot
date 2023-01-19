@@ -21,7 +21,7 @@ Press `1` - `4` on the numpad to change the dispersion of the lines as they are 
 
 ## Building
 
-Depends on a C++11 compiler and [SDL2](https://www.libsdl.org/download-2.0.php).
+Depends on a C++11 compiler and [SDL2](https://github.com/libsdl-org/SDL/releases).
 
 Install SDL2 on Mac with `brew install sdl2`.
 

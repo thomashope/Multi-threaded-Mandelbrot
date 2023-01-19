@@ -2,6 +2,8 @@
 
 A University project from 2015 to learn multithreading concepts.
 
+![A screenshot of the Mandelbrot fractal, rendered by this program.](./img/mandel.png)
+
 ## Controls
 
 Use the `arrow keys` to navigate the Mandelbrot.  
